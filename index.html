@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Invert - Tile Flipping game</title>
+	<style type="text/css">
+
+		html{
+			background-color: #000;
+		}
+
+		#title{
+			font-family: "Comic Sans MS";
+			font-size: 50px;
+			margin-top: 6vh;
+			color: tomato;
+		}
+
+		.tile-container{
+			margin-top: 5vh;
+			margin-left: 36vw;
+		}
+		
+		.tile{
+			margin: 20px;
+			height: 100px;
+			width: 100px;
+			background-color: orange;
+			border-radius: 10px;
+			box-shadow: 1px 1px #999;
+			border-style: outset;
+		}
+
+		.tile:hover{
+			transform: scale(1.03);
+		}
+
+		div.tile{ 
+			float:left;
+		}
+
+		.clearBoth{
+			clear:both;
+		}
+
+		#scoreDiv{
+			margin-top: 24vh;
+			color: white;
+			font-family: "Comic Sans MS";
+			font-size: 20px;
+		}
+
+		#statusDiv{
+			margin-top: 3vh;
+			color: white;
+			font-family: "Comic Sans MS";
+			font-size: 20px;
+			color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<div style="text-align: center">
+		<div id="title">Invert</div>
+	</div>
+	
+	<div style="text-align: center">
+		<div class="tile-container">
+			<div>
+				<div id="1" class="tile" onclick="tileClick(this);"></div>
+				<div id="2" class="tile" onclick="tileClick(this);"></div>
+				<div id="3" class="tile" onclick="tileClick(this);"></div>
+			</div>
+			<br class="clearBoth">
+			<div>
+				<div id="4" class="tile" onclick="tileClick(this);"></div>
+				<div id="5" class="tile" onclick="tileClick(this);"></div>
+				<div id="6" class="tile" onclick="tileClick(this);"></div>
+			</div>
+			<br class="clearBoth">
+			<div>
+				<div id="7" class="tile" onclick="tileClick(this);"></div>
+				<div id="8" class="tile" onclick="tileClick(this);"></div>
+				<div id="9" class="tile" onclick="tileClick(this);"></div>
+			</div>
+		</div>	
+	</div>
+
+	<div style="text-align: center;">
+		<div id="scoreDiv">Score : 0</div>
+	</div>
+	<div style="text-align: center;">
+		<div id="statusDiv">Game not yet over!</div>
+	</div>
+	
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
