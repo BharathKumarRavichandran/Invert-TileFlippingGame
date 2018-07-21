@@ -1,6 +1,7 @@
 var tileOpen = false;
 var tileOpenId;
 var score = 0;
+var gameOver = false;
 
 var tileArray = ["1","2","3","4","5","6","7","8","9"];
 var pairArray = [];
@@ -56,77 +57,81 @@ function restore(){
 
 function tileClick(y){
 
-	var id = y.getAttribute("id");
+	if(gameOver==false){
 
-	var index = pairArray.findIndex(obj => obj.firstTile==id||obj.secondTile==id); //index in pairArray
-	if(typeof pairArray[index] !== 'undefined'){
-		document.getElementById(id).style.backgroundColor = pairArray[index].colour.toString();
+		var id = y.getAttribute("id");
 
-		if(parseInt(pairArray[index].firstTile)==id){
-			pairArray[index].firstTileOpen = "yes";
-			pairArray[index].firstTileClicked = "yes";
+		var index = pairArray.findIndex(obj => obj.firstTile==id||obj.secondTile==id); //index in pairArray
+		if(typeof pairArray[index] !== 'undefined'){
+			document.getElementById(id).style.backgroundColor = pairArray[index].colour.toString();
 
-			var tileOpenIdIndex;
-			if(tileOpen==true){
-				tileOpenIdIndex = pairArray.findIndex(obj => obj.firstTile==tileOpenId||obj.secondTile==tileOpenId); //index in pairArray
+			if(parseInt(pairArray[index].firstTile)==id){
+				pairArray[index].firstTileOpen = "yes";
+				pairArray[index].firstTileClicked = "yes";
 
-				if(pairArray[tileOpenIdIndex].colour==pairArray[index].colour){
-					console.log("Found!");
-					score+=20;
-					document.getElementById("scoreDiv").innerHTML = "Score : "+score;
+				var tileOpenIdIndex;
+				if(tileOpen==true){
+					tileOpenIdIndex = pairArray.findIndex(obj => obj.firstTile==tileOpenId||obj.secondTile==tileOpenId); //index in pairArray
+
+					if(pairArray[tileOpenIdIndex].colour==pairArray[index].colour){
+						console.log("Found!");
+						score+=20;
+						document.getElementById("scoreDiv").innerHTML = "Score : "+score;
+					}
+					else{
+						console.log("Not Found");
+						document.getElementById(tileOpenId).style.backgroundColor = "orange";
+						document.getElementById(id).style.backgroundColor = "orange";
+						pairArray[index].firstTileOpen = "no";
+						pairArray[index].firstTileClicked = "no";
+					}
+					console.log(tileOpen);
+					tileOpen = false;
 				}
 				else{
-					console.log("Not Found");
-					document.getElementById(tileOpenId).style.backgroundColor = "orange";
-					document.getElementById(id).style.backgroundColor = "orange";
-					pairArray[index].firstTileOpen = "no";
-					pairArray[index].firstTileClicked = "no";
+					tileOpen = true;
+					tileOpenId = id;
 				}
-				console.log(tileOpen);
-				tileOpen = false;
+
 			}
-			else{
-				tileOpen = true;
-				tileOpenId = id;
-			}
+			else if(parseInt(pairArray[index].secondTile)==id){
+				pairArray[index].secondTileOpen = "yes";
+				pairArray[index].secondTileClicked = "yes";
 
-		}
-		else if(parseInt(pairArray[index].secondTile)==id){
-			pairArray[index].secondTileOpen = "yes";
-			pairArray[index].secondTileClicked = "yes";
+				var tileOpenIdIndex;
+				if(tileOpen==true){
+					tileOpenIdIndex = pairArray.findIndex(obj => obj.firstTile==tileOpenId||obj.secondTile==tileOpenId); //index in pairArray
 
-			var tileOpenIdIndex;
-			if(tileOpen==true){
-				tileOpenIdIndex = pairArray.findIndex(obj => obj.firstTile==tileOpenId||obj.secondTile==tileOpenId); //index in pairArray
-
-				if(pairArray[tileOpenIdIndex].colour==pairArray[index].colour){
-					console.log("Found!");
-					score+=20;
-					document.getElementById("scoreDiv").innerHTML = "Score : "+score;
+					if(pairArray[tileOpenIdIndex].colour==pairArray[index].colour){
+						console.log("Found!");
+						score+=20;
+						document.getElementById("scoreDiv").innerHTML = "Score : "+score;
+					}
+					else{
+						console.log("Not Found");
+						document.getElementById(tileOpenId).style.backgroundColor = "orange";
+						document.getElementById(id).style.backgroundColor = "orange";
+						pairArray[index].secondTileOpen = "no";
+						pairArray[index].secondTileClicked = "no";
+					}
+					console.log(tileOpen);
+					tileOpen = false;
 				}
 				else{
-					console.log("Not Found");
-					document.getElementById(tileOpenId).style.backgroundColor = "orange";
-					document.getElementById(id).style.backgroundColor = "orange";
-					pairArray[index].secondTileOpen = "no";
-					pairArray[index].secondTileClicked = "no";
+					tileOpen = true;
+					tileOpenId = id;
 				}
-				console.log(tileOpen);
-				tileOpen = false;
 			}
-			else{
-				tileOpen = true;
-				tileOpenId = id;
-			}
+			
 		}
-		
-	}
 
-	if(score>=80){
-		document.getElementById("statusDiv").innerHTML = "Succesfully Completed!";
-		document.getElementById("statusDiv").style.color = "green";
-	}
+		if(score>=80){
+			gameOver = true;
+			document.getElementById("statusDiv").innerHTML = "Succesfully Completed!";
+			document.getElementById("statusDiv").style.color = "green";
+		}
 
+	}
 
 }
 
